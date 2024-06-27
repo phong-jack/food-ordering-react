@@ -46,3 +46,27 @@ export const logoutService = async (
     throw error;
   }
 };
+
+export const registerUserService = async (
+  { firstName, lastName, email, phone, username, password, role },
+  dispatch,
+  navigate
+) => {
+  try {
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      username,
+      password,
+      role,
+    };
+
+    const res = await axiosClient.post("/auth/sign-up", payload);
+    navigate("/");
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};

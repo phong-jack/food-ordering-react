@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../assets/react.svg";
 import { useSelector } from "react-redux";
+import { DEFAULT_AVATAR_URL } from "../../utils/constants";
 
 const NavBar = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -50,11 +51,7 @@ const NavBar = () => {
                       </span>
                     </i>
                   </Link>
-                  <img
-                    src={user.image}
-                    className="rounded-circle m-2"
-                    height={25}
-                  />
+                  <i class="fa-solid fa-user"></i>
                   <NavDropdown title={user.fullName} className="">
                     <li>
                       <Link to="/order-history" className="dropdown-item">

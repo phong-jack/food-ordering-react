@@ -1,6 +1,5 @@
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import SideBar from "./components/nav/SideBar";
-import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import { Route, Router, Routes, redirect } from "react-router-dom";
 import { PAGE_ROUTER } from "./router/page.route";
@@ -13,10 +12,12 @@ import NavBar from "./components/nav/NavBar";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
+import RegisterModal from "./components/modals/RegisterModal";
 
 function App() {
   //State
   const [isShowLoginModal, setShowLoginModal] = useState(false);
+  const [isShowRegisterModal, setShowRegisterModal] = useState(false);
 
   //Redux
   const user = useSelector((state) => state.auth?.login.currentUser);
@@ -24,20 +25,18 @@ function App() {
   // Handle
   const handleCloseModal = () => {
     setShowLoginModal(false);
+    setShowRegisterModal(false);
   };
 
   return (
     <>
-      {!user && (
-        <LoginModal
-          isShowLoginModal={isShowLoginModal}
-          handleCloseModal={handleCloseModal}
-        />
-      )}
       <Container fluid>
         <Row style={{ minHeight: "1000px" }}>
           <Col xs={12} md={2} lg={2}>
-            <SideBar setShowLoginModal={setShowLoginModal} />
+            <SideBar
+              setShowLoginModal={setShowLoginModal}
+              setShowRegisterModal={setShowRegisterModal}
+            />
           </Col>
 
           <Col xs={12} md={10} lg={10}>
@@ -50,6 +49,18 @@ function App() {
           </Col>
         </Row>
       </Container>
+
+      <LoginModal
+        isShowLoginModal={isShowLoginModal}
+        setShowRegisterModal={setShowRegisterModal}
+        handleCloseModal={handleCloseModal}
+      />
+
+      <RegisterModal
+        isShowRegisterModal={isShowRegisterModal}
+        handleCloseModal={handleCloseModal}
+        setShowLoginModal={setShowLoginModal}
+      />
 
       <ToastContainer
         position="top-center"

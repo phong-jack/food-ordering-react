@@ -29,3 +29,23 @@ body {
   border: 3px solid #ee4d;
   border-radius: 30px;
 }
+
+.category div > div {
+  border: 0.25rem solid #ee4d;
+  background-color: #ee4d;
+  border-radius: 10px;
+}
+
+.shop-product-containter span {
+  color: #e67700;
+}
+
+.shop-product-containter .category {
+  background-color: rgb(242, 244, 244);
+  border-radius: 3px;
+  margin-right: 2rem;
+}
+
+.order-food-icon:hover {
+  cursor: pointer;
+}

@@ -6,7 +6,7 @@ import { loginUserService } from "../../services/auth.service";
 import { toast } from "react-toastify";
 
 const Login = (props) => {
-  const { handleCloseModal } = props;
+  const { handleCloseModal, setShowRegisterModal } = props;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +35,11 @@ const Login = (props) => {
       toast.error(error.response.data.message);
       console.log("Check:: ", error.response.data.message);
     }
+  };
+
+  const handleClickRegister = () => {
+    handleCloseModal();
+    setShowRegisterModal(true);
   };
 
   return (
@@ -102,6 +107,16 @@ const Login = (props) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+            </div>
+
+            <div className="text-grey-dark mt-6">
+              Have not an account?
+              <button
+                className="no-underline border-b border-blue text-blue mx-1"
+                onClick={handleClickRegister}
+              >
+                Register
+              </button>
             </div>
 
             <div>

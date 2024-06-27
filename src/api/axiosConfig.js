@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import axios from "axios";
 import { config } from "dotenv";
 import { jwtDecode } from "jwt-decode";
@@ -31,6 +32,8 @@ export const refreshRefreshToken = async () => {
 };
 
 export const createAxios = (currentUser, dispatch, stateSuccess) => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
   const navigate = useNavigate();
   const newInstance = axios.create({
     baseURL: `${BACKEND_URL}/api/v1`,
@@ -38,6 +41,29 @@ export const createAxios = (currentUser, dispatch, stateSuccess) => {
 
   newInstance.interceptors.request.use(async (config) => {
     let date = new Date();
-    // const decodedToken = jwtDecode(currentUser.)
+    const decodedToken = jwtDecode(currentUser?.tokens.accessToken);
+
+    if (decodedToken.exp < date.getTime() / 1000) {
+      try {
+        const data = await refreshRefreshToken();
+        const refreshCurrentUser = {
+          ...currentUser,
+          tokens: {
+            accessToken: data.accessToken,
+            refreshToken,
+          },
+        };
+
+        dispatch(stateSuccess(refreshCurrentUser));
+        config.headers[
+          "Authorization"
+        ] = `Bearer ${currentUser.tokens.accessToken}`;
+
+        return config;
+      } catch (error) {
+        return Promise.reject(err);
+      }
+    }
   });
+  return newInstance;
 };

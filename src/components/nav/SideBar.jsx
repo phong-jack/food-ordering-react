@@ -3,13 +3,14 @@ import { Nav, NavDropdown } from "react-bootstrap";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { DEFAULT_AVATAR_URL } from "../../utils/constants";
 
 const SideBar = (props) => {
   //Props
-  const { setShowLoginModal } = props;
+  const { setShowLoginModal, setShowRegisterModal } = props;
 
   //Redux
-  const user = useSelector((state) => state.auth?.login.currentUser);
+  const user = useSelector((state) => state.auth.login.currentUser?.user);
 
   const handleFormRegister = () => {};
 
@@ -25,16 +26,16 @@ const SideBar = (props) => {
             <MenuItem component={<Link to="/admin/product" />}>
               Product
             </MenuItem>
+            <MenuItem component={<Link to="/admin/order" />}>Order</MenuItem>
+            <MenuItem component={<Link to="/admin/report" />}>Report</MenuItem>
           </SubMenu>
         </Menu>
-
-        {/* <div style={{ height: "400px" }}></div> */}
 
         <Nav className="align-items-center">
           {(user && (
             <>
               <img
-                src={user.image}
+                src={DEFAULT_AVATAR_URL}
                 className="rounded-circle m-2 avatar"
                 height={50}
                 width={50}
@@ -73,7 +74,7 @@ const SideBar = (props) => {
 
               <button
                 className="btn btn-warning btn-rounded"
-                onClick={handleFormRegister}
+                onClick={() => setShowRegisterModal(true)}
               >
                 Đăng ký
               </button>

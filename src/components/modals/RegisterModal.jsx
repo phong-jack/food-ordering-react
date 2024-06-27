@@ -1,21 +1,21 @@
 import React from "react";
-import Login from "../forms/Login";
+import Register from "../forms/Register";
 import { Modal } from "react-bootstrap";
 
-const LoginModal = (props) => {
-  const { isShowLoginModal, handleCloseModal, setShowRegisterModal } = props;
+const RegisterModal = (props) => {
+  const { isShowRegisterModal, handleCloseModal, setShowLoginModal } = props;
 
   return (
     <Modal
-      show={isShowLoginModal}
+      show={isShowRegisterModal}
       onHide={handleCloseModal}
       backdrop="static"
       centered
     >
       <Modal.Body>
-        <Login
+        <Register
           handleCloseModal={handleCloseModal}
-          setShowRegisterModal={setShowRegisterModal}
+          setShowLoginModal={setShowLoginModal}
         />
       </Modal.Body>
       <Modal.Footer>
@@ -27,4 +27,4 @@ const LoginModal = (props) => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;
